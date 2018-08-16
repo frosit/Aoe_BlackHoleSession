@@ -9,11 +9,12 @@ class Aoe_BlackHoleSession_Model_Session extends Mage_Core_Model_Session
     {
         parent::__construct($data);
         if (!empty($_SERVER['HTTP_USER_AGENT'])) {
-            $config = Mage::getConfig()->getNode('global/aoeblackholesession');
-            $botRegex = (string) $config->descend('bot_regex');
-            if (preg_match($botRegex, $_SERVER['HTTP_USER_AGENT'])) {
-                $this->isBot = true;
-            }
+            $config = Mage::getConfig()->getNode('global');
+            if (($config = $config->descend('aoeblackholesession')) && $botRegex = (string)$config->descend('bot_regex')) {
+                if (preg_match($botRegex, $_SERVER['HTTP_USER_AGENT'])) {
+                    $this->isBot = true;
+                }
+            };
         }
     }
 
