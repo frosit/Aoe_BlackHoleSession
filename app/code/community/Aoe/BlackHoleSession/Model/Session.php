@@ -14,7 +14,7 @@ class Aoe_BlackHoleSession_Model_Session extends Mage_Core_Model_Session
                 if (preg_match($botRegex, $_SERVER['HTTP_USER_AGENT'])) {
                     $this->isBot = true;
                 }
-            };
+            }
         }
     }
 
@@ -30,7 +30,8 @@ class Aoe_BlackHoleSession_Model_Session extends Mage_Core_Model_Session
     public function getSessionSavePath()
     {
         if ($this->isBot) {
-            $sessionHandler = Mage::getModel('aoeblackholesession/sessionHandler'); /* @var $sessionHanlder Aoe_BlackHoleSession_Model_SessionHandler */
+            /** @var Aoe_BlackHoleSession_Model_SessionHandler $sessionHandler */
+            $sessionHandler = Mage::getModel('aoeblackholesession/sessionHandler');
             return array($sessionHandler, 'setHandler');
         } else {
             return parent::getSessionSavePath();
